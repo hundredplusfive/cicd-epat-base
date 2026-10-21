@@ -27,6 +27,6 @@ jobs:
     - name: Run Snyk security scan
       uses: snyk/actions/maven@master
       with:
-        args: --severity-threshold=high
+        args: --severity-threshold=high --all-projects
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

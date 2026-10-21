@@ -25,21 +25,21 @@ jobs:
     needs: build-test
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK 23
+
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
+          distribution: temurin
           java-version: '23'
-          distribution: 'temurin'
-          cache: maven
-      - name: Verify Java
+
+      - name: Verify Java environment
         run: |
           echo "JAVA_HOME=$JAVA_HOME"
-          ls -l "$JAVA_HOME/bin/java"
+          test -x "$JAVA_HOME/bin/java"
           java -version
-      - name: Run Snyk security scan
+
+      - name: Snyk security scan
         uses: snyk/actions/maven@master
-        with:
-          args: --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
